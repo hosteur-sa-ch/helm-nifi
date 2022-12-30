@@ -268,7 +268,6 @@
             NOTE: Any identity mapping rules specified in nifi.properties will also be applied to the node identities,
             so the values should be the unmapped identities (i.e. full DN from a certificate).
     -->
-    {{- if .Values.auth.ldap.enabled}}
     <authorizer>
         <identifier>file-provider</identifier>
         <class>org.apache.nifi.authorization.FileAuthorizer</class>
@@ -276,7 +275,10 @@
         <property name="Users File">./auth-conf/users.xml</property>
         <property name="Initial Admin Identity">{{.Values.auth.ldap.admin}}</property>
         <property name="Legacy Authorized Users File"></property>
-
+        {{- if and .Values.auth.ldap.enabled (not .Values.auth.admin) }}
+        <property name="Initial User Identity admin">{{.Values.auth.ldap.admin}}</property>
+        {{- else }}
+        <property name="Initial User Identity admin">{{ .Values.auth.admin }}</property>
+        {{- end}}
     </authorizer>
-    {{- end}}
 </authorizers>

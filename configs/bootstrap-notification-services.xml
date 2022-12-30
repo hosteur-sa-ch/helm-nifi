@@ -50,4 +50,15 @@
         <property name="URL"></property>
      </service>
 -->
+     <service>
+        <id>email-notification</id>
+        <class>org.apache.nifi.bootstrap.notification.email.EmailNotificationService</class>
+        <property name="SMTP Hostname">smtp-01-fr.hosteurtransac.net</property>
+        <property name="SMTP Port">587</property>
+        <property name="SMTP Username">als-poc@hosteurtransac.net</property>
+        <property name="SMTP Password">:,38,REcKLoUS</property>
+        <property name="SMTP TLS">true</property>
+        <property name="From">"nifi@als-poc.hosteur.network"</property>
+        <property name="To">florent@hosteur.com</property>
+     </service>
 </services>

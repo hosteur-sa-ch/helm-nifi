@@ -7,7 +7,7 @@ replicaCount: 1
 ##
 image:
   repository: apache/nifi
-  tag: "1.16.3"
+  tag: "1.19.0"
   pullPolicy: "IfNotPresent"
 
   ## Optionally specify an imagePullSecret.
@@ -73,6 +73,7 @@ sts:
 
 
 properties:
+  banner: Hosteur Nifi for Kube
   # https://nifi.apache.org/docs/nifi-docs/html/administration-guide.html#nifi_sensitive_props_key
   sensitiveKey: changeMechangeMe # Must have at least 12 characters
   # NiFi assumes conf/nifi.properties is persistent but this helm chart
@@ -89,7 +90,7 @@ properties:
   # sensitiveKeyPrior: OldPasswordToChangeFrom
   algorithm: NIFI_PBKDF2_AES_GCM_256
   # use externalSecure for when inbound SSL is provided by nginx-ingress or other external mechanism
-  externalSecure: false
+  externalSecure: true
   isNode: false
   httpsPort: 8443
   webProxyHost: # <clusterIP>:<NodePort> (If Nifi service is NodePort or LoadBalancer)
@@ -114,7 +115,7 @@ properties:
 # Nifi User Authentication
 auth:
   # If set while LDAP is enabled, this value will be used for the initial admin and not the ldap bind dn / admin
-  admin: CN=admin, OU=NIFI
+  admin: nifi-admin
   SSL:
     keystorePasswd: changeMe
     truststorePasswd: changeMe
